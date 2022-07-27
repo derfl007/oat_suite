@@ -108,7 +108,7 @@ export default function Calendar2() {
 	return (
 			<div>
 				<Head>
-					<title>Calendar 2</title>
+					<title>Oats Software Suite - Calendar 2</title>
 				</Head>
 				<div className={ "bg-blue-700 text-white w-100 p-4 text-center flex justify-between items-center" }>
 					<div className={ "text-3xl" }><AiOutlineArrowLeft className={ "cursor-pointer" }
@@ -118,14 +118,14 @@ export default function Calendar2() {
 																														 onClick={ () => router.push("/info") }/></div>
 				</div>
 
-				<div className={ "grid grid-cols-7 w-100 mx-auto my-2" }>
+				<div className={ "grid w-100 mx-auto my-2 " + (month === 12 ? "grid-cols-6" : "grid-cols-7") }>
 					<div className={ "col-span-full text-center bg-blue-500 text-white m-1 flex justify-between p-2" }>
 						<div
 								className={ "rounded-full bg-blue-700 text-white w-8 h-8 text-2xl flex items-center justify-center leading-normal cursor-pointer" }
 								onClick={ () => dispatchMonth({type: "prev"}) }>
 							<AiOutlineLeft/>
 						</div>
-						<h2>
+						<h2 className={ month === 12 ? "font-comic font-bold text-rainbow" : "" }>
 							{ months[month][0] }
 						</h2>
 						<div
@@ -152,9 +152,11 @@ export default function Calendar2() {
 					<div className={ "border-2 border-blue-400 bg-blue-100 m-1 p-1 text-center" }>
 						F
 					</div>
-					<div className={ "border-2 border-blue-400 bg-blue-100 m-1 p-1 text-center" }>
-						Sa
-					</div>
+					{ month !== 12 ? (
+							<div className={ "border-2 border-blue-400 bg-blue-100 m-1 p-1 text-center" }>
+								Sa
+							</div>
+					) : "" }
 					{ Array.from({length: months[month][1]}, (_, i) => (
 							<div key={ i }
 									 className={ "border-blue-400 h-36 m-1 flex flex-col " + (currentMonth - 1 === month && currentDay - 1 === i ? "bg-blue-200 border-4" : "border-2") }>
