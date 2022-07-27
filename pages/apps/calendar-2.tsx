@@ -4,6 +4,7 @@ import moment from "moment";
 import { AiOutlineArrowLeft, AiOutlineInfoCircle, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { NextPage } from "next";
 
 const monthReducer = (state: number, action: { type: string }) => {
 	switch (action.type) {
@@ -62,7 +63,7 @@ function getBetterDate(date?: string): [number, number] {
 	return [day, month];
 }
 
-export default function Calendar2() {
+const Calendar2: NextPage = () => {
 	const [currentDay, currentMonth] = getBetterDate();
 	const [month, dispatchMonth] = useReducer(monthReducer, currentMonth - 1);
 	const router = useRouter();
@@ -160,14 +161,14 @@ export default function Calendar2() {
 					{ Array.from({length: months[month][1]}, (_, i) => (
 							<div key={ i }
 									 className={ "border-blue-400 h-36 m-1 flex flex-col " + (currentMonth - 1 === month && currentDay - 1 === i ? "bg-blue-200 border-4" : "border-2") }>
-								<div className={ "flex justify-between bg-blue-300 px-2" }>
+								<div className={ "flex justify-between bg-blue-300 px-2 flex-wrap" }>
 									{
 											month === 1 && i === 28 || i + 1
 									}
 									{
 											month === 12 && i === 5 && (
 													<div className={ "text-red-500" }>
-														+6 hrs
+														+6h
 													</div>
 											)
 									}
@@ -182,11 +183,11 @@ export default function Calendar2() {
 										}
 									</div>
 								</div>
-
-
 							</div>
 					)) }
 				</div>
 			</div>
 	)
 }
+
+export default Calendar2
